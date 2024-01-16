@@ -1,0 +1,31 @@
+.text-container {
+    height: 90%;
+    padding: 10%;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    grid-template-rows: 30px 1fr;
+    grid-gap: 10px;
+}
+
+.text-field {
+    background: #555;
+    min-height: 50vh;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: left;
+    text-overflow: ellipsis;
+    line-break: anywhere;
+    transition: all 0.3s;
+}
+
+.text-field:focus {
+    outline: none;
+    border: 1px solid #fff;
+}
+
+button {
+    justify-self: center;
+    align-self: center;
+}
