@@ -14,6 +14,7 @@
     border: 1px solid #777;
     border-radius: 10px;
     font-size: 20px;
+    direction: ltr;
     text-align: left;
     text-overflow: ellipsis;
     line-break: anywhere;
