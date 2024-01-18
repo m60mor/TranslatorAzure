@@ -17,26 +17,36 @@ export default function TextTranslator({ lang }: any) {
     }
 
     const handleTextChange = (e: React.FormEvent<HTMLDivElement>) => {
-      setText(e.currentTarget.textContent || '');
-  }
+        const newText = e.currentTarget.innerHTML;
+        console.log(newText);
+        setText(newText);
+    }
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
             const formData = new FormData();
             formData.append('file', file);
-
+    
             try {
-              alert('Started file upload');
+                alert('Started file upload');
                 const response = await fetch('http://127.0.0.1:5000/analyze-document', {
                     method: 'POST',
                     body: formData,
                 });
-
+    
                 const data = await response.json();
-
+    
                 // Update the text field with the translated text
+                console.log(data.translated_text);
                 setText(data.translated_text);
+    
+                // Explicitly set the inner HTML of the contentEditable div
+                const contentEditableDiv = document.querySelector('.text-field');
+                if (contentEditableDiv) {
+                    contentEditableDiv.innerHTML = data.translated_text;
+                }
+    
                 // Notify the user that the file has been uploaded and processed
                 alert('File uploaded and processed successfully!');
             } catch (error) {
@@ -44,6 +54,7 @@ export default function TextTranslator({ lang }: any) {
             }
         }
     };
+    
 
     const translateText = () => {
         fetch('http://127.0.0.1:5000/set-text', {
