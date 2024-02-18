@@ -50,12 +50,12 @@ def poll_translation_status(operation_location, headers):
     except requests.exceptions.RequestException as e:
         raise Exception(f"Error during translation status polling: {str(e)}")
 
-def download_blob_to_string( blob_service_client: BlobServiceClient, container_name, blob_name):
+def download_blob_to_bytes(blob_service_client, container_name, blob_name):
     blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
     downloader = blob_client.download_blob(max_concurrency=1)
-    blob_text = downloader.readall()
+    blob_data = downloader.readall()
     blob_client.delete_blob()
-    return blob_text
+    return blob_data
 @app.route('/translate-document', methods=['POST'])
 def translate_document_azure():
     global endpointDoc
@@ -131,7 +131,7 @@ def translate_document_azure():
                 translation_result = poll_translation_status(operation_location, headers)
                 blob_client.delete_blob()
                 print("Translation result:", translation_result)
-                stream = download_blob_to_string(blob_service_client, "output", filename)
+                stream = download_blob_to_bytes(blob_service_client, "output", filename)
                 return Response(stream)
             else:
                 print("Operation-Location header not found in the response.")
