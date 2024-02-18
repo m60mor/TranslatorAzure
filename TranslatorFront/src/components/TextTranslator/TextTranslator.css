@@ -1,9 +1,8 @@
 .text-container {
-    height: 90%;
-    padding: 10%;
+    grid-area: 2 / span 3;
     display: grid;
     grid-template-columns: 1fr 100px 1fr;
-    grid-template-rows: 30px 1fr;
+    grid-template-rows: 1fr;
     grid-gap: 10px;
 }
 
@@ -19,6 +18,7 @@
     text-overflow: ellipsis;
     line-break: anywhere;
     transition: all 0.3s;
+    overflow-y: scroll;
 }
 
 .text-field:focus {

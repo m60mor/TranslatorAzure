@@ -1,0 +1,17 @@
+.document-container {
+    grid-area: 2 / span 3;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+}
+
+button {
+    justify-self: center;
+    align-self: center;
+}
+
+input {
+    justify-self: center;
+    align-self: center;
+}

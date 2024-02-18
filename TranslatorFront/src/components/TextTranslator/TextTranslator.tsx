@@ -1,24 +1,13 @@
 import { useState } from "react";
 import './TextTranslator.css'
 
-export default function TextTranslator({ lang }: any) {
+export default function TextTranslator({ inputLang, outputLang }: any) {
     const [text, setText] = useState('');
     const [retText, setRetText] = useState('');
-    const [inputLang, setInputLang] = useState("en");
-
-    const handleInput = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setInputLang(event.target.value);
-    }
-
-    const [outputLang, setOutputLang] = useState("en");
-
-    const handleOutput = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setOutputLang(event.target.value);
-    }
 
     const handleTextChange = (e: React.FormEvent<HTMLDivElement>) => {
-        const newText = e.currentTarget.innerHTML;
-        console.log(newText);
+        let newText = e.currentTarget.innerHTML;
+        newText = newText.replace(/<br>/gi, '').replace(/<p\s*[^>]*>/gi, '').replace(/<\/p\s*>/gi, '').replace(/<span\s*[^>]*>/gi, '').replace(/<\/span\s*>/gi, '');;
         setText(newText);
     }
 
@@ -83,23 +72,9 @@ export default function TextTranslator({ lang }: any) {
     return (
         <>
             <div className="text-container">
-                <select className="text-language" style={{ gridArea: "1 / 1" }} value={inputLang} onChange={handleInput}>
-                    {Object.keys(lang).map((e) => (
-                        <option key={e} value={e}>
-                            {e + ' - ' + lang[e]}
-                        </option>
-                    ))}
-                </select>
                 <div className="text-field" style={{ gridArea: "2 / 1"}} contentEditable onInput={handleTextChange}></div>
                 <input type="file" onChange={handleFileChange} style={{ gridArea: "3 / 1" }}/>
                 <button onClick={translateText} style={{ gridArea: "2 / 2" }}>Translate</button>
-                <select className="text-language" style={{ gridArea: "1 / 3" }} value={outputLang} onChange={handleOutput}>
-                    {Object.keys(lang).map((e) => (
-                        <option key={e} value={e}>
-                            {e + ' - ' + lang[e]}
-                        </option>
-                    ))}
-                </select>
                 <div className="text-field" style={{ gridArea: "2 / 3" }}>{retText}</div>
             </div>
         </>
