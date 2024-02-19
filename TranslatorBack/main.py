@@ -84,6 +84,7 @@ def translate_document_azure():
         blob_client = blob_service_client.get_blob_client(container="input", blob=filename)
         with open(file="./uploads/" + filename, mode="rb") as data:
             blob_client.upload_blob(data)
+        os.remove(file_path)
 
     try:
         path = 'translator/text/batch/v1.1/batches'
