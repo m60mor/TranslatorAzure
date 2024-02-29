@@ -20,6 +20,8 @@ endpoint2 = "https://amdocint.cognitiveservices.azure.com/"
 key2 = "003509088f534a798adc04cecc767e65"
 
 endpointDoc = "https://projectazure2.cognitiveservices.azure.com/"
+sourceSASUrl = 'https://document60.blob.core.windows.net/input?sp=rwdl&st=2024-02-26T22:34:42Z&se=2024-03-04T06:34:42Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-26T22:34:42Z&ske=2024-03-04T06:34:42Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=ndybaM4tyXGfLcLfC9qUVsefEPjjKMmbbWrHd%2FXvTfs%3D'
+targetSASUrl = 'https://document60.blob.core.windows.net/output?sp=rwdl&st=2024-02-26T22:36:29Z&se=2024-03-04T06:36:29Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-26T22:36:29Z&ske=2024-03-04T06:36:29Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=Zl1fXUC%2FJPX9Bp2rNjV3Zx9Z%2F%2B4Mge6oMXpVbthrM0Y%3D'
 
 input_code = "pl"
 output_code = "en"
@@ -55,6 +57,7 @@ def download_blob_to_bytes(blob_service_client, container_name, blob_name):
     downloader = blob_client.download_blob(max_concurrency=1)
     blob_data = downloader.readall()
     blob_client.delete_blob()
+    blob_service_client.close()
     return blob_data
 @app.route('/translate-document', methods=['POST'])
 def translate_document_azure():
@@ -62,6 +65,8 @@ def translate_document_azure():
     global key
     global input_code
     global output_code
+    global sourceSASUrl
+    global targetSASUrl
 
     json_data = request.form['json']
     json_data = json.loads(json_data)
@@ -90,8 +95,6 @@ def translate_document_azure():
         path = 'translator/text/batch/v1.1/batches'
         constructed_url = endpointDoc + path
 
-        sourceSASUrl = 'https://document60.blob.core.windows.net/input?sp=rwdl&st=2024-02-18T21:16:48Z&se=2024-02-19T05:16:48Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-18T21:16:48Z&ske=2024-02-19T05:16:48Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=ohGvhfWyM26eRvdfF4du8jriK5O2PTxAxA%2FPFHz%2FrIs%3D'
-        targetSASUrl = 'https://document60.blob.core.windows.net/output?sp=rawdl&st=2024-02-18T21:05:21Z&se=2024-02-19T05:05:21Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-18T21:05:21Z&ske=2024-02-19T05:05:21Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=20h2oErPNCcMvpQrbfsiGAR6Kkajv6oUQklhsSy1gYA%3D'
         body = {
             "inputs": [
                 {
@@ -121,8 +124,8 @@ def translate_document_azure():
 
         print(f'response status code: {response.status_code}\nresponse status: {response.reason}\n\nresponse headers:\n')
 
-        for key, value in response_headers.items():
-            print(key, ":", value)
+        for i, value in response_headers.items():
+            print(i, ":", value)
         print(response)
 
         if response.status_code == 202:
@@ -138,7 +141,6 @@ def translate_document_azure():
                 print("Operation-Location header not found in the response.")
                 return jsonify({'b': str(5)})
         else:
-            # Handle other response codes if needed
             print("Unexpected response code:", response.status_code)
             return jsonify({'error': str(response.status_code)})
 

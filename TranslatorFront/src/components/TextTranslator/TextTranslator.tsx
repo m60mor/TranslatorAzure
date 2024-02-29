@@ -25,18 +25,13 @@ export default function TextTranslator({ inputLang, outputLang }: any) {
                 });
     
                 const data = await response.json();
-    
-                // Update the text field with the translated text
-                console.log(data.translated_text);
                 setText(data.translated_text);
     
-                // Explicitly set the inner HTML of the contentEditable div
                 const contentEditableDiv = document.querySelector('.text-field');
                 if (contentEditableDiv) {
                     contentEditableDiv.innerHTML = data.translated_text;
                 }
     
-                // Notify the user that the file has been uploaded and processed
                 alert('File uploaded and processed successfully!');
             } catch (error) {
                 console.error('Error uploading or processing file:', error);
@@ -71,12 +66,10 @@ export default function TextTranslator({ inputLang, outputLang }: any) {
 
     return (
         <>
-            <div className="text-container">
-                <div className="text-field" style={{ gridArea: "2 / 1"}} contentEditable onInput={handleTextChange}></div>
-                <input type="file" onChange={handleFileChange} style={{ gridArea: "3 / 1" }}/>
-                <button onClick={translateText} style={{ gridArea: "2 / 2" }}>Translate</button>
-                <div className="text-field" style={{ gridArea: "2 / 3" }}>{retText}</div>
-            </div>
+            <div className="text-field input" contentEditable onInput={handleTextChange}></div>
+            <input type="file" onChange={handleFileChange} style={{ gridArea: "3 / 3 span", justifySelf: "start"}}/>
+            <button onClick={translateText}>Translate</button>
+            <div className="text-field output">{retText}</div>
         </>
     )
 }

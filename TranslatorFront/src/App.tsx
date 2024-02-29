@@ -38,14 +38,14 @@ function App() {
       </select>
       
       <div className='main-container'>
-        <select className="select-language" style={{ gridArea: "1 / 1" }} value={inputLang} onChange={handleInput}>
+        <select className="select-language" style={{ gridArea: "1 / 1", overflow: "hidden" }} value={inputLang} onChange={handleInput}>
           {Object.keys(lang).map((e : any) => (
             <option key={e} value={e}>
               {e + ' - ' + lang[e]}
               </option>
           ))}
         </select>
-        <select className="select-language" style={{ gridArea: "1 / 3" }} value={outputLang} onChange={handleOutput}>
+        <select className="select-language" style={{ gridArea: "1 / 3", overflow: "hidden" }} value={outputLang} onChange={handleOutput}>
           {Object.keys(lang).map((e : any) => (
             <option key={e} value={e}>
               {e + ' - ' + lang[e]}

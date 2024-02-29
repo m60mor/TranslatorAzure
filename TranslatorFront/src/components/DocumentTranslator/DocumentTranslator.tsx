@@ -9,6 +9,7 @@ export default function DocumentTranslator({ inputLang, outputLang } : any) {
         const file = event.target.files?.[0];
         if (file) {
             setDocument(file);
+            setDocLink('');
         }
     };
 
@@ -36,14 +37,15 @@ export default function DocumentTranslator({ inputLang, outputLang } : any) {
     
     return(
         <>
-            <div className="document-container">
-                <input type="file" onChange={handleDocumentChange} style={{ gridArea: "2 / 1" }}/>
-                <button style={{ gridArea: "2 / 2" }} onClick={translateDocument}>Translate</button>
-                {docLink === '' ? 
-                    <h2 style={{ gridArea: "2 / 3" }}>Here will be your file</h2> :
-                    <a href={docLink} download={document?.name} style={{ gridArea: "2 / 3" }}>Download {document?.name}</a>
-                }
-            </div>
+            <label htmlFor="file-upload" className="custom-file-upload" style={{ gridArea: "2 / 1" }}>
+                Select file
+            </label>
+            <input id="file-upload" type="file" onChange={handleDocumentChange} style={{ gridArea: "2 / 1" }}/>
+            <button style={{ gridArea: "2 / 2" }} onClick={translateDocument}>Translate</button>
+            {docLink === '' ? 
+                <h2 style={{ gridArea: "2 / 3" }}>Here will be your file</h2> :
+                <a href={docLink} download={document?.name} style={{ gridArea: "2 / 3" }}>Download {document?.name}</a>
+            }
         </>
     )
 }
