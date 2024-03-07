@@ -4,23 +4,96 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  text-align: center;
 }
 
-.select-translator {
+.header {
+  background: #06a;
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
+  box-sizing: border-box;
   width: 100%;
   height: 60px;
-  border: none;
-  font-size: 25px;
-  text-align: center;
-  transition: all 0.3s;
+  padding: 0 10% 0 10%;
 }
 
-.select-translator:hover {
-  background: #444;
+.logo {
+  color: #fff;
+  font-size: 25px;
+}
+
+.filler {
+  flex: 1;
+}
+
+.select-translator {
+  background: #06a;
+  display: grid;
+  grid-template-columns: 200px 30px;
+  color-scheme: light;
+  width: 230px;
+  padding: 2px 0 2px 0;
+  border: 1px solid #39d;
+  border-radius: 5px;
+  margin-right: 5%;
+  outline: none;
+  user-select: none;
+  /* transition: all 0.3s; */
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+}
+
+@media (hover: hover) {
+  .select-translator:hover {
+    transform: translateY(41px);
+  }
+  .select-translator:hover li {
+    display: block;
+  }
+}
+
+@media (hover: none) {
+  .select-translator--touch {
+    transform: translateY(41px);
+  }
+  .select-translator--touch li {
+    display: block !important;
+  }
+}
+
+.select-translation__selected {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-translation__arrow {
+  grid-area: 1 / 2;
+  align-self: center;
+}
+
+.select-translator li {
+  display: none;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding: 5px;
+  border-top: 1px solid #28c;
+}
+
+.select-translator li:hover {
+  background: #17b;
+  border-radius: 5px;
+}
+
+.theme-toggle {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 49%, rgba(0,0,0,1) 51%);
+  width: 30px;
+  height: 30px;
+  border: 1px #fff solid;
 }
 
 .main-container {
@@ -33,7 +106,12 @@
   margin: 0 10% 0 10%;
 }
 
+.select-language {
+  overflow: hidden;
+}
+
 button {
+  background: #ccc;
   width: 100px;
   height: 100px;
   font-size: 20px;
@@ -42,13 +120,30 @@ button {
   transition: all 0.3s;
 }
 
+.button--dark {
+  background: #555;
+}
+
 button:hover {
-  background: #242;
+  background: #484;
+  color: #FFF;
 }
 
 @media (max-width: 750px){
   .main-container {
       margin: 0 5% 0 5%;
+  }
+  .header {
+    padding: 0 5% 0 5%;
+  }
+  .logo {
+    display: none;
+  }
+  .filler {
+    order: 1;
+  }
+  .theme-toggle {
+    order: 2;
   }
   button {
     font-size: 25px;

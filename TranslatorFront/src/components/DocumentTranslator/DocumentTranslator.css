@@ -8,21 +8,37 @@ input, a, h2 {
     align-self: center;
 }
 
-input[type="file"] {
+.file-download {
+    grid-area: 2 / 3; 
+}
+
+.file-download--dark {
+    color: #fff;
+}
+
+#upload {
     display: none;
 }
 
-.custom-file-upload {
+.file-upload {
     justify-self: center;
     align-self: center;
-    background: #555;
+    background: #ccc;
     padding: 10px;
     border-radius: 10px;
     font-size: 25px;
     transition: all 0.3s;
 }
 
-.custom-file-upload:hover {
+.file-upload:hover {
+    background: #999;
+}
+
+.file-upload--dark {
+    background: #555;
+    color: #fff;
+}
+
+.file-upload:hover {
     background: #777;
-    color: #000;
 }

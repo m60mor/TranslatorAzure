@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './TextTranslator.css'
 
-export default function TextTranslator({ inputLang, outputLang }: any) {
+export default function TextTranslator({ inputLang, outputLang, isDark }: any) {
     const [text, setText] = useState('');
     const [retText, setRetText] = useState('');
 
@@ -66,10 +66,10 @@ export default function TextTranslator({ inputLang, outputLang }: any) {
 
     return (
         <>
-            <div className="text-field input" contentEditable onInput={handleTextChange}></div>
+            <div className={isDark ? "text-field text-field--dark input" : "text-field input"} contentEditable onInput={handleTextChange}></div>
             <input type="file" onChange={handleFileChange} style={{ gridArea: "3 / 3 span", justifySelf: "start"}}/>
-            <button onClick={translateText}>Translate</button>
-            <div className="text-field output">{retText}</div>
+            <button className={isDark ? "button--dark" : ""} onClick={translateText}>Translate</button>
+            <div className={isDark ? "text-field text-field--dark output" : "text-field output"}>{retText}</div>
         </>
     )
 }

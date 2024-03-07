@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './DocumentTranslator.css'
 
-export default function DocumentTranslator({ inputLang, outputLang } : any) {
+export default function DocumentTranslator({ inputLang, outputLang, isDark } : any) {
     const [document, setDocument] = useState<File | null>(null);
     const [docLink, setDocLink] = useState<string>('');
 
@@ -37,14 +37,14 @@ export default function DocumentTranslator({ inputLang, outputLang } : any) {
     
     return(
         <>
-            <label htmlFor="file-upload" className="custom-file-upload" style={{ gridArea: "2 / 1" }}>
+            <label htmlFor="upload" className={isDark ? "file-upload file-upload--dark" : "file-upload"} style={{ gridArea: "2 / 1" }}>
                 Select file
             </label>
-            <input id="file-upload" type="file" onChange={handleDocumentChange} style={{ gridArea: "2 / 1" }}/>
-            <button style={{ gridArea: "2 / 2" }} onClick={translateDocument}>Translate</button>
+            <input id="upload" type="file" onChange={handleDocumentChange} style={{ gridArea: "2 / 1" }}/>
+            <button className={isDark ? "button--dark" : ""} style={{ gridArea: "2 / 2" }} onClick={translateDocument}>Translate</button>
             {docLink === '' ? 
-                <h2 style={{ gridArea: "2 / 3" }}>Here will be your file</h2> :
-                <a href={docLink} download={document?.name} style={{ gridArea: "2 / 3" }}>Download {document?.name}</a>
+                <h2 className={isDark ? "file-download file-download--dark" : "file-download"}>Here will be your file</h2> :
+                <a className="file-download" href={docLink} download={document?.name}>Download {document?.name}</a>
             }
         </>
     )
