@@ -49,7 +49,7 @@ export default function TextTranslator({ inputLang, outputLang, isDark }: any) {
             body: JSON.stringify({ text, inputLang, outputLang }),
         })
             .then(response => response.json())
-            .then(data => {
+            .then(() => {
                 fetch('http://127.0.0.1:5000/translate-text')
                     .then(response => response.json())
                     .then(data => {

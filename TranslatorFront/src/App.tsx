@@ -23,11 +23,11 @@ function App() {
       setOutputLang(event.target.value);
   }
 
-  const handleOptionChange = (event : any) => {
-    setSelectedOption(event.target.value);
-  }
+  // const handleOptionChange = (event : any) => {
+  //   setSelectedOption(event.target.value);
+  // }
 
-  const mobileHover = (event : any) => {
+  const mobileHover = () => {
       setIsHover(!isHover);
     }
 
