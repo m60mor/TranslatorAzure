@@ -36,6 +36,11 @@ button {
     grid-area: 2 / 3;
 }
 
+.read-file {
+    grid-area: 3 / 3 span;
+    justify-self: start;
+}
+
 @media (max-width: 750px){
     button {
         position: absolute;

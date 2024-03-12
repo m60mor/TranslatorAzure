@@ -50,34 +50,38 @@ function App() {
   return (
     <>
     <div className='header'>
-      <div className='logo'>
+      <div className='header__logo'>
         Translator
       </div>
-      <div className='filler'></div>
+      <div className='header__filler'></div>
       <ul className={`select-translator ${isHover ? "select-translator--touch" : ""}`} onClick={mobileHover}>
-        <div className='select-translation__selected'>{selectedOption}</div>
-        <div className='select-translation__arrow'>&#x25BC;</div>
-        <li onClick={() => setSelectedOption("Text Translator")}>Text Translator</li>
-        <li onClick={() => setSelectedOption("Document Translator")}>Document Translator</li>
+        <div className='select-translator__selected'>{selectedOption}</div>
+        <div className='select-translator__arrow'>&#x25BC;</div>
+        <li className={`${isHover ? 'select-translator__li select-translator__li--touch' : 'select-translator__li'}`} onClick={() => setSelectedOption("Text Translator")}>Text Translator</li>
+        <li className={`${isHover ? 'select-translator__li select-translator__li--touch' : 'select-translator__li'}`} onClick={() => setSelectedOption("Document Translator")}>Document Translator</li>
       </ul>
-      <div className='theme-toggle' onClick={toggleTheme}></div>
+      <div className='header__theme-toggle' onClick={toggleTheme}></div>
     </div>
       
       <div className='main-container'>
-        <select className={isDark ? "select-language select-language--dark" : "select-language"} style={{ gridArea: "1 / 1"}} value={inputLang} onChange={handleInput}>
-          {Object.keys(lang).map((e : any) => (
-            <option key={e} value={e}>
-              {e + ' - ' + lang[e]}
+        <div className='select-container' style={{ gridArea: "1 / 1"}}>
+          <select className={isDark ? "select-language select-language--dark" : "select-language"} value={inputLang} onChange={handleInput}>
+            {Object.keys(lang).map((e : any) => (
+              <option className='select-language__option' key={e} value={e}>
+                {e + ' - ' + lang[e]}
+                </option>
+            ))}
+          </select>
+        </div>
+        <div className='select-container' style={{ gridArea: "1 / 3"}}>
+          <select className={isDark ? "select-language select-language--dark" : "select-language"} value={outputLang} onChange={handleOutput}>
+            {Object.keys(lang).map((e : any) => (
+              <option className='select-language__option' key={e} value={e}>
+                {e + ' - ' + lang[e]}
               </option>
-          ))}
-        </select>
-        <select className={isDark ? "select-language select-language--dark" : "select-language"} style={{ gridArea: "1 / 3"}} value={outputLang} onChange={handleOutput}>
-          {Object.keys(lang).map((e : any) => (
-            <option key={e} value={e}>
-              {e + ' - ' + lang[e]}
-            </option>
-          ))}
-        </select>
+            ))}
+          </select>
+        </div>
 
         {selectedOption === 'Text Translator' && (
           <TextTranslator inputLang={inputLang} outputLang={outputLang} isDark={isDark}/>

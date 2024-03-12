@@ -19,13 +19,20 @@
   padding: 0 10% 0 10%;
 }
 
-.logo {
+.header__logo {
   color: #fff;
   font-size: 25px;
 }
 
-.filler {
+.header__filler {
   flex: 1;
+}
+
+.header__theme-toggle {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 49%, rgba(0,0,0,1) 51%);
+  width: 30px;
+  height: 30px;
+  border: 1px #fff solid;
 }
 
 .select-translator {
@@ -46,11 +53,19 @@
   text-align: center;
 }
 
+.select-translator__li {
+  display: none;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding: 5px;
+  border-top: 1px solid #28c;
+}
+
 @media (hover: hover) {
   .select-translator:hover {
     transform: translateY(41px);
   }
-  .select-translator:hover li {
+  .select-translator:hover .select-translator__li {
     display: block;
   }
 }
@@ -59,41 +74,26 @@
   .select-translator--touch {
     transform: translateY(41px);
   }
-  .select-translator--touch li {
-    display: block !important;
+  .select-translator__li--touch {
+    display: block;
   }
 }
 
-.select-translation__selected {
+.select-translator__selected {
   grid-area: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.select-translation__arrow {
+.select-translator__arrow {
   grid-area: 1 / 2;
   align-self: center;
 }
 
-.select-translator li {
-  display: none;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  padding: 5px;
-  border-top: 1px solid #28c;
-}
-
-.select-translator li:hover {
+.select-translator__li:hover {
   background: #17b;
   border-radius: 5px;
-}
-
-.theme-toggle {
-  background: linear-gradient(135deg, rgba(255,255,255,1) 49%, rgba(0,0,0,1) 51%);
-  width: 30px;
-  height: 30px;
-  border: 1px #fff solid;
 }
 
 .main-container {
@@ -106,8 +106,12 @@
   margin: 0 10% 0 10%;
 }
 
+.select-container {
+}
+
 .select-language {
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 button {
@@ -136,13 +140,13 @@ button:hover {
   .header {
     padding: 0 5% 0 5%;
   }
-  .logo {
+  .header__logo {
     display: none;
   }
-  .filler {
+  .header__filler {
     order: 1;
   }
-  .theme-toggle {
+  .header__theme-toggle {
     order: 2;
   }
   button {

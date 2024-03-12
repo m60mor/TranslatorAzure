@@ -67,7 +67,7 @@ export default function TextTranslator({ inputLang, outputLang, isDark }: any) {
     return (
         <>
             <div className={isDark ? "text-field text-field--dark input" : "text-field input"} contentEditable onInput={handleTextChange}></div>
-            <input type="file" onChange={handleFileChange} style={{ gridArea: "3 / 3 span", justifySelf: "start"}}/>
+            <input className='read-file' type="file" onChange={handleFileChange}/>
             <button className={isDark ? "button--dark" : ""} onClick={translateText}>Translate</button>
             <div className={isDark ? "text-field text-field--dark output" : "text-field output"}>{retText}</div>
         </>
