@@ -4,15 +4,27 @@ import TextTranslator from './components/TextTranslator/TextTranslator'
 import DocumentTranslator from './components/DocumentTranslator/DocumentTranslator';
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
+  const getSavedTheme = () => {
+    try {
+      const data = localStorage.getItem("isDark")
+      return data
+    } catch(e) {
+      console.log("Could not find saved theme")
+      return 'false'
+    }
+  }
+
+  const [isDark, setIsDark] = useState('false' === getSavedTheme());
   const [lang, setLang] = useState([]);
-  const [inputLang, setInputLang] = useState("en");
-  const [outputLang, setOutputLang] = useState("en");
-  const [selectedOption, setSelectedOption] = useState("Text Translator");
+  const [inputLang, setInputLang] = useState('en');
+  const [outputLang, setOutputLang] = useState('en');
+  const [selectedOption, setSelectedOption] = useState('Text Translator');
   const [isHover, setIsHover] = useState(false);
 
   const toggleTheme = () => {
     isDark ? setIsDark(false) : setIsDark(true);
+    console.log(isDark);
+    localStorage.setItem("isDark", `${isDark}`);
   }
 
   const handleInput = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,12 +50,12 @@ function App() {
       .catch(error => console.error('Error fetching languages:', error));
 
     if (isDark) {
-      document.body.style.background = "#242424"
-      document.body.style.colorScheme = "light dark"
+      document.body.style.background = '#242424'
+      document.body.style.colorScheme = 'light dark'
     }
     else {
-      document.body.style.background = "#fff" 
-      document.body.style.colorScheme = ""
+      document.body.style.background = '#fff'
+      document.body.style.colorScheme = ''
     }
   }, [isDark]);
 
@@ -54,7 +66,7 @@ function App() {
         Translator
       </div>
       <div className='header__filler'></div>
-      <ul className={`select-translator ${isHover ? "select-translator--touch" : ""}`} onClick={mobileHover}>
+      <ul className={`select-translator ${isHover ? 'select-translator--touch' : ''}`} onClick={mobileHover}>
         <div className='select-translator__selected'>{selectedOption}</div>
         <div className='select-translator__arrow'>&#x25BC;</div>
         <li className={`${isHover ? 'select-translator__li select-translator__li--touch' : 'select-translator__li'}`} onClick={() => setSelectedOption("Text Translator")}>Text Translator</li>
@@ -65,7 +77,7 @@ function App() {
       
       <div className='main-container'>
         <div className='select-container' style={{ gridArea: "1 / 1"}}>
-          <select className={isDark ? "select-language select-language--dark" : "select-language"} value={inputLang} onChange={handleInput}>
+          <select className={isDark ? 'select-language select-language--dark' : 'select-language'} value={inputLang} onChange={handleInput}>
             {Object.keys(lang).map((e : any) => (
               <option className='select-language__option' key={e} value={e}>
                 {e + ' - ' + lang[e]}
@@ -74,7 +86,7 @@ function App() {
           </select>
         </div>
         <div className='select-container' style={{ gridArea: "1 / 3"}}>
-          <select className={isDark ? "select-language select-language--dark" : "select-language"} value={outputLang} onChange={handleOutput}>
+          <select className={isDark ? 'select-language select-language--dark' : 'select-language'} value={outputLang} onChange={handleOutput}>
             {Object.keys(lang).map((e : any) => (
               <option className='select-language__option' key={e} value={e}>
                 {e + ' - ' + lang[e]}
