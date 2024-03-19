@@ -66,10 +66,10 @@ export default function TextTranslator({ inputLang, outputLang, isDark }: any) {
 
     return (
         <>
-            <div className={isDark ? "text-field text-field--dark input" : "text-field input"} contentEditable onInput={handleTextChange}></div>
-            <input className='read-file' type="file" onChange={handleFileChange}/>
-            <button className={isDark ? "button--dark" : ""} onClick={translateText}>Translate</button>
-            <div className={isDark ? "text-field text-field--dark output" : "text-field output"}>{retText}</div>
+            <div className={isDark ? 'text-field text-field--dark input' : 'text-field input'} contentEditable onInput={handleTextChange}></div>
+            <input className='read-file' type='file' onChange={handleFileChange}/>
+            <button className={isDark ? 'button-translate button-translate--dark' : 'button-translate'} onClick={translateText}>Translate</button>
+            <div className={isDark ? 'text-field text-field--dark output' : 'text-field output'}>{retText}</div>
         </>
     )
 }

@@ -37,14 +37,14 @@ export default function DocumentTranslator({ inputLang, outputLang, isDark } : a
     
     return(
         <>
-            <label htmlFor="upload" className={isDark ? "file-upload file-upload--dark" : "file-upload"} style={{ gridArea: "2 / 1" }}>
+            <label htmlFor='upload' className={isDark ? 'file-upload file-upload--dark' : 'file-upload'} style={{ gridArea: '2 / 1' }}>
                 Select file
             </label>
-            <input id="upload" type="file" onChange={handleDocumentChange} style={{ gridArea: "2 / 1" }}/>
-            <button className={isDark ? "button--dark" : ""} style={{ gridArea: "2 / 2" }} onClick={translateDocument}>Translate</button>
+            <input id='upload' type='file' onChange={handleDocumentChange}/>
+            <button className={isDark ? 'button-translate button-translate--dark' : 'button-translate'} onClick={translateDocument}>Translate</button>
             {docLink === '' ? 
-                <h2 className={isDark ? "file-download file-download--dark" : "file-download"}>Here will be your file</h2> :
-                <a className="file-download" href={docLink} download={document?.name}>Download {document?.name}</a>
+                <h2 className={isDark ? 'file-download file-download--dark' : 'file-download'}>Here will be your file</h2> :
+                <a className='file-download' href={docLink} download={document?.name}>Download {document?.name}</a>
             }
         </>
     )

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import TextTranslator from './components/TextTranslator/TextTranslator'
-import DocumentTranslator from './components/DocumentTranslator/DocumentTranslator';
+import TextTranslator from './sites/TextTranslator/TextTranslator'
+import DocumentTranslator from './sites/DocumentTranslator/DocumentTranslator';
+import MessageModal from './components/MessageModal/MessageModal';
 
 function App() {
   const getSavedTheme = () => {
@@ -15,7 +16,7 @@ function App() {
   }
 
   const [isDark, setIsDark] = useState('false' === getSavedTheme());
-  const [lang, setLang] = useState([]);
+  const [lang, setLang] = useState<string[]>([]);
   const [inputLang, setInputLang] = useState('en');
   const [outputLang, setOutputLang] = useState('en');
   const [selectedOption, setSelectedOption] = useState('Text Translator');
@@ -35,10 +36,6 @@ function App() {
       setOutputLang(event.target.value);
   }
 
-  // const handleOptionChange = (event : any) => {
-  //   setSelectedOption(event.target.value);
-  // }
-
   const mobileHover = () => {
       setIsHover(!isHover);
     }
@@ -47,7 +44,10 @@ function App() {
     fetch('http://127.0.0.1:5000/get-languages')
       .then(response => response.json())
       .then(data => setLang(data))
-      .catch(error => console.error('Error fetching languages:', error));
+      .catch(error => {
+        setLang(["Network error"]);
+        console.error('Error fetching languages:', error);
+      });
 
     if (isDark) {
       document.body.style.background = '#242424'
@@ -61,6 +61,7 @@ function App() {
 
   return (
     <>
+    <MessageModal />
     <div className='header'>
       <div className='header__logo'>
         Translator
@@ -72,7 +73,9 @@ function App() {
         <li className={`${isHover ? 'select-translator__li select-translator__li--touch' : 'select-translator__li'}`} onClick={() => setSelectedOption("Text Translator")}>Text Translator</li>
         <li className={`${isHover ? 'select-translator__li select-translator__li--touch' : 'select-translator__li'}`} onClick={() => setSelectedOption("Document Translator")}>Document Translator</li>
       </ul>
-      <div className='header__theme-toggle' onClick={toggleTheme}></div>
+      <div className='header__theme-toggle' onClick={toggleTheme}>
+        <div className={`${isDark ? 'header__theme-toggle__slider header__theme-toggle__slider--dark' : 'header__theme-toggle__slider'}`}></div>
+      </div>
     </div>
       
       <div className='main-container'>

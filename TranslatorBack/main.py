@@ -35,7 +35,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def poll_translation_status(operation_location, headers):
     try:
-        while True:
+        for i in range(10):
             response = requests.get(operation_location, headers=headers)
             response.raise_for_status()  # Raise an HTTPError for bad responses
 
