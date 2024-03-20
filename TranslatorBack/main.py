@@ -2,8 +2,6 @@ import os
 import requests
 import json
 import time
-import io
-import uuid
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
@@ -12,16 +10,17 @@ from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
-key = "599471b6ead24ab2914dd26f79c318ae"
-endpoint = "https://api.cognitive.microsofttranslator.com"
-location = "westeurope"
+# paste your azure credentials here
+key = ""
+endpoint = ""
+location = ""
 
-endpoint2 = "https://amdocint.cognitiveservices.azure.com/"
-key2 = "003509088f534a798adc04cecc767e65"
+endpoint2 = ""
+key2 = ""
 
-endpointDoc = "https://projectazure2.cognitiveservices.azure.com/"
-sourceSASUrl = 'https://document60.blob.core.windows.net/input?sp=rwdl&st=2024-02-26T22:34:42Z&se=2024-03-04T06:34:42Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-26T22:34:42Z&ske=2024-03-04T06:34:42Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=ndybaM4tyXGfLcLfC9qUVsefEPjjKMmbbWrHd%2FXvTfs%3D'
-targetSASUrl = 'https://document60.blob.core.windows.net/output?sp=rwdl&st=2024-02-26T22:36:29Z&se=2024-03-04T06:36:29Z&skoid=459d29bc-057c-43b0-9ba2-c4986ae81913&sktid=ab840be7-206b-432c-bd22-4c20fdc1b261&skt=2024-02-26T22:36:29Z&ske=2024-03-04T06:36:29Z&sks=b&skv=2022-11-02&sv=2022-11-02&sr=c&sig=Zl1fXUC%2FJPX9Bp2rNjV3Zx9Z%2F%2B4Mge6oMXpVbthrM0Y%3D'
+endpointDoc = ""
+sourceSASUrl = ""
+targetSASUrl = ""
 
 input_code = "pl"
 output_code = "en"
